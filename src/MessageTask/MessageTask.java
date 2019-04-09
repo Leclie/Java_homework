@@ -1,4 +1,4 @@
-package lesson9.enums;
+/*package lesson9.enums;
 
 import lesson9.enums.Message;
 
@@ -138,4 +138,4 @@ public class MessageTask {
     }
 
 
-}
+}*/
