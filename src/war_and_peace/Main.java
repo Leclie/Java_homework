@@ -14,6 +14,7 @@ public class Main {
         Scanner scanner = new Scanner(file);
         int wordCount = 0;
         Zadanie2 zadanie2 = new Zadanie2();
+        Zadanie3 zadanie3 = new Zadanie3();
 
         while(scanner.hasNext()){
             String text = scanner.nextLine();
@@ -25,6 +26,9 @@ public class Main {
 
                     // ЗАДАНИЕ 2
                     zadanie2.work(word);
+
+                    // ЗАДАНИЕ 3
+                    zadanie3.setWord(word);
                 }
             }
         }
@@ -32,6 +36,9 @@ public class Main {
         System.out.println("Количество слов: " + wordCount);
         // ЗАДАНИЕ 2
         zadanie2.out();
+
+        // ЗАДАНЕИ 3
+        zadanie3.out();
 
         scanner.close();
     }
