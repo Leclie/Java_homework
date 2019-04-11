@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Scanner;
 
 public class Main {
@@ -14,28 +13,23 @@ public class Main {
     }
 
     public static void copyFile(File file) throws IOException {
-        long sum = 0;
 
         try(FileInputStream inputStream = new FileInputStream(file)){
-
             System.out.println("Введите имя файла");
             Scanner in = new Scanner(System.in);
             String fileName = in.nextLine();
-            String pathName = fileName;
 
-            File copyFile = new File(pathName);
 
             while(inputStream.available() > 0){
-                ++sum;
                 int data = inputStream.read();
-                Main.writeByte(fileName, true, Charset.forName("UTF-8"), data);
+                Main.writeByte(fileName, true, data);
             }
-            System.out.println("количество скопированных байт = " + sum);
+            System.out.println("количество скопированных байт = " + file.length());
         }
 
     }
 
-    public static void writeByte(String fileName, boolean append, Charset charset, int data) throws IOException{
+    public static void writeByte(String fileName, boolean append, int data) throws IOException{
         try(FileOutputStream outputStream = new FileOutputStream(fileName, append)){
             outputStream.write(data);
         }
