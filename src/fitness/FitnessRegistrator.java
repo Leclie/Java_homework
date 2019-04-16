@@ -1,20 +1,27 @@
 package fitness;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class FitnessRegistrator {
-    private TreeSet<Human> inGym = new TreeSet<>();
-    private TreeSet<Human> inPool = new TreeSet<>();
-    private TreeSet<Human> inGroup = new TreeSet<>();
+    private TreeSet<Human> inGym;
+    private TreeSet<Human> inPool;
+    private TreeSet<Human> inGroup;
+    FitnessLogger fitnessLogger;
 
     FitnessRegistrator(){
         Comparator<Human> humanComparator = new HumanSurnameComparator().thenComparing(new HumanNameComparator());
         inGym = new TreeSet<>(humanComparator);
         inPool = new TreeSet<>(humanComparator);
         inGroup = new TreeSet<>(humanComparator);
+
+        File file = new File("D:\\JAVA\\Java_homework\\src\\fitness\\file.txt");
+        fitnessLogger = new FitnessLogger(file);
     }
 
     public void add(Client client, FitnessServiceEnumeration type)  {
+        fitnessLogger.add(client, type);
         if (FitnessServiceEnumeration.GYM.equals(type)) {
             if (inGym.size() < 21){
                 inGym.add(client);
@@ -30,6 +37,7 @@ public class FitnessRegistrator {
     }
 
     public void add(DayClient dayClient, FitnessServiceEnumeration type){
+        fitnessLogger.add(dayClient, type);
         if (FitnessServiceEnumeration.GYM.equals(type)) {
             if (inGym.size() < 21){
                 inGym.add(dayClient);
@@ -44,6 +52,7 @@ public class FitnessRegistrator {
     }
 
     public void add(FullDayClient fullDayClient, FitnessServiceEnumeration type){
+        fitnessLogger.add(fullDayClient, type);
         if (FitnessServiceEnumeration.GYM.equals(type)) {
             if (inGym.size() < 21){
                 inGym.add(fullDayClient);
