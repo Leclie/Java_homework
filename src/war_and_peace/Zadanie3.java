@@ -2,18 +2,20 @@ package war_and_peace;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import static java.util.Collections.max;
 
-public class Zadanie3 {
-    private ArrayList<String> words;
-    private ArrayList<Integer> counts;
-    private String[] topWords;
+public class Zadanie3 implements Runnable {
+    private ArrayList<String> words = new ArrayList<>();
+    private ArrayList<Integer> counts = new ArrayList<>();
+    private ArrayList<String> topWords = new ArrayList<>();
+    private List<String> text;
+    private static HashMap<Integer, String> hashMap = new HashMap<>();
 
-    Zadanie3(){
-        words = new ArrayList<>();
-        counts = new ArrayList<>();
-        topWords = new String[10];
+    Zadanie3(List<String> text){
+        this.text = text;
     }
 
     public void setWord(String word){
@@ -33,13 +35,28 @@ public class Zadanie3 {
 
     public void out(){
         int max = max(counts);
-        for (int i = 0; i < 10; ++i){
-            topWords[i] = words.get(counts.indexOf(max));
+        for (int i = 0; i < 100; ++i){
+            topWords.add(words.get(counts.indexOf(max)));
             do{
                 --max;
             }while(!counts.contains(max));
         }
-        System.out.println("Топ 10 слов:");
-        System.out.println(Arrays.toString(topWords));
+    }
+
+    @Override
+    public void run() {
+        for (String word : text){
+            setWord(word);
+        }
+        out();
+        synchronized (hashMap){
+            for (Integer i = 0; i < 100; ++i){
+                hashMap.put(i, topWords.get(i));
+            }
+        }
+    }
+
+    public static void outt(){
+        System.out.println(hashMap);
     }
 }
