@@ -18,8 +18,9 @@ public class Client {
         this.port = port;
     }
 
-    public void start(){
+    public void start() throws IOException {
         while (true) {
+            connection = new Connection(new Socket(server, Integer.parseInt(port)));
             System.out.println("Введите имя");
             Scanner scanner1 = new Scanner(System.in);
             String user = scanner1.nextLine();
@@ -39,14 +40,11 @@ public class Client {
                     break;
             }
             connect(command);
-            scanner1.close();
-            scanner2.close();
         }
     }
 
     public void connect(Command command){
         try {
-            connection = new Connection(new Socket(server, Integer.parseInt(port)));
             connection.sendCommand(command);
         } catch (UnknownHostException e) {
             e.printStackTrace();

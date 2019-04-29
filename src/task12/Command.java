@@ -1,6 +1,8 @@
 package task12;
 
-public class Command {
+import java.io.Serializable;
+
+public class Command implements Serializable {
     String user;
     String command;
 
