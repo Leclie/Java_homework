@@ -18,6 +18,10 @@ public class Zadanie3 implements Runnable {
         this.text = text;
     }
 
+    public static HashMap<Integer, String> getHashMap() {
+        return hashMap;
+    }
+
     public void setWord(String word){
         if(!words.contains(word)){
             words.add(word);

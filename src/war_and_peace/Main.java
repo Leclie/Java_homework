@@ -73,5 +73,12 @@ public class Main {
         Zadanie3.outt();
 
         scanner.close();
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream(new File("src/war_and_peace/top.txt"), true)){
+            byte[] bytes = Zadanie3.getHashMap().toString().getBytes();
+            fileOutputStream.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
